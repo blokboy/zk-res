@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Add, Search } from '@material-ui/icons'
 
+import DropDownList from "../../components/dropdownlist";
+
 const SearchBar = styled.input`
     display: flex;
     width: 400px;
@@ -40,13 +42,15 @@ const SearchButtonBitch = styled.button`
     top: 3.4px;
     right: 476px;
     cursor: pointer;
-    outline: none;
+    outline: nosne;
 `;
 
 function Dashboard({ ...props }) {
     const [bounty, setBounty] = useState(0.00);
     const [resolution, setResolution] = useState('');
     const [search, setSearch] = useState('');
+    const [creator, setCreator] = useState('');
+    const [address, setAddress] = useState('');
 
     const closeModal = (e) => {
         e.preventDefault();
@@ -97,6 +101,8 @@ function Dashboard({ ...props }) {
                     <SearchButtonBitch onClick={(e) => console.log(search)}>
                         <Search />
                     </SearchButtonBitch>
+                    <DropDownList heading={"Most Recent Guesses"}/>
+                    <DropDownList heading={"Most Recent Resolutions"}/>
                 </div>
             </div>
         </section>

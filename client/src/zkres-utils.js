@@ -222,22 +222,22 @@ const getPastEvents = async (provider, contract, topics = []) => {
 };
 
 const getCommittedGuesses = async (provider, contract) => {
-  return await getPastEvents(provider, contract, [
-    GUESS_COMMITTED
-  ]);
+  return await getPastEvents(provider, contract,
+    EVENT_TOPICS["GUESS_COMMITTED"]
+  );
 }
 
 const getGuessedResolutions = async (provider, contract) => {
-  return await getPastEvents(provider, contract, [
-    RESOLUTION_GUESSED
-  ]);
+  return await getPastEvents(provider, contract,
+    EVENT_TOPICS["RESOLUTION_GUESSED"]
+  );
 };
 
 const getActiveResolutions = async (provider, contract) => {
   const guessed = await getGuessedResolutions(provider, contract);
-  const resolutions = await getPastEvents(provider, contract, [
-    RESOLUTION_PUBLISHED
-  ]);
+  const resolutions = await getPastEvents(provider, contract,
+    EVENT_TOPICS["RESOLUTION_PUBLISHED"]
+  );
 
   return resolutions.filter((resolution) => {
     return !guessed.some((guess) => {

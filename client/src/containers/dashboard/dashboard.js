@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Add, Search } from '@material-ui/icons'
+import { Add, Search } from '@material-ui/icons';
 
 import DropDownList from "../../components/dropdownlist";
+
+import {
+    createResolution,
+    getActiveResolutions,
+} from "../../zkres-utils";
 
 const SearchBar = styled.input`
     display: flex;
@@ -87,7 +92,7 @@ function Dashboard({ ...props }) {
                             </textarea>
                         </section>
                         <footer className="modal-card-foot">
-                            <button className="button is-success" onClick={(e) => console.log('Clicked Hash')}>Add Hash</button>
+                            <button className="button is-success" onClick={(e) => createResolution(resolution, address)}>Add Hash</button>
                             <button className="button" onClick={(e) => closeModal(e)}>Cancel</button>
                         </footer>
                     </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 export default function DropDownList({ ...props }) {
-  const { heading, color } = props;
+  const { heading } = props;
   const [recentGuesses, setRecentGuesses] = useState([]);
   
   return (

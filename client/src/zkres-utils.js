@@ -233,11 +233,15 @@ const getGuessedResolutions = async (provider, contract) => {
   ]);
 };
 
-const getActiveResolutions = async (provider, contract) => {
-  const guessed = await getGuessedResolutions(provider, contract);
-  const resolutions = await getPastEvents(provider, contract, [
+const getAllResolutions = async (provider, contract) => {
+  return await getPastEvents(provider, contract, [
     RESOLUTION_PUBLISHED
   ]);
+};
+
+const getActiveResolutions = async (provider, contract) => {
+  const resolutions = await getAllResolutions(provider, contract);
+  const guessed = await getGuessedResolutions(provider, contract);
 
   return resolutions.filter((resolution) => {
     return !guessed.some((guess) => {
@@ -252,5 +256,6 @@ export {
   createGuess,
   getCommittedGuesses,
   getGuessedResolutions,
+  getAllResolutions,
   getActiveResolutions,
 };

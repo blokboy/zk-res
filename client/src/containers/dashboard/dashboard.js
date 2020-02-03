@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Add, Search } from '@material-ui/icons'
+import { Add, Search } from '@material-ui/icons';
+
+// Contract Address -> 0x5B9bc77C95E4a88f09cE64F191251B16244Ecd51
+
+import DropDownList from "../../components/dropdownlist";
+
+import {
+    createResolution,
+    getActiveResolutions,
+} from "../../zkres-utils";
 
 const SearchBar = styled.input`
     display: flex;
@@ -40,13 +49,15 @@ const SearchButtonBitch = styled.button`
     top: 3.4px;
     right: 476px;
     cursor: pointer;
-    outline: none;
+    outline: nosne;
 `;
 
 function Dashboard({ ...props }) {
     const [bounty, setBounty] = useState(0.00);
     const [resolution, setResolution] = useState('');
     const [search, setSearch] = useState('');
+    const [creator, setCreator] = useState('');
+    const [address, setAddress] = useState('');
 
     const closeModal = (e) => {
         e.preventDefault();
@@ -83,7 +94,7 @@ function Dashboard({ ...props }) {
                             </textarea>
                         </section>
                         <footer className="modal-card-foot">
-                            <button className="button is-success" onClick={(e) => console.log('Clicked Hash')}>Add Hash</button>
+                            <button className="button is-success" onClick={(e) => createResolution(resolution, address)}>Add Hash</button>
                             <button className="button" onClick={(e) => closeModal(e)}>Cancel</button>
                         </footer>
                     </div>
@@ -97,6 +108,8 @@ function Dashboard({ ...props }) {
                     <SearchButtonBitch onClick={(e) => console.log(search)}>
                         <Search />
                     </SearchButtonBitch>
+                    <DropDownList heading={"Most Recent Guesses"}/>
+                    <DropDownList heading={"Most Recent Resolutions"}/>
                 </div>
             </div>
         </section>

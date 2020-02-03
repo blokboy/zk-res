@@ -1,5 +1,5 @@
 import { soliditySha3 } from "web3-utils";
-import ethers from 'ethers';
+import { ethers } from 'ethers';
 
 const createResolution = (resolution, creator) => {
   return soliditySha3(
@@ -222,26 +222,28 @@ const getPastEvents = async (provider, contract, topics = []) => {
 };
 
 const getCommittedGuesses = async (provider, contract) => {
-  return await getPastEvents(provider, contract, [
-    GUESS_COMMITTED
-  ]);
+  return await getPastEvents(provider, contract,
+    EVENT_TOPICS["GUESS_COMMITTED"]
+  );
 }
 
 const getGuessedResolutions = async (provider, contract) => {
-  return await getPastEvents(provider, contract, [
-    RESOLUTION_GUESSED
-  ]);
+  return await getPastEvents(provider, contract,
+    EVENT_TOPICS["RESOLUTION_GUESSED"]
+  );
 };
 
 const getAllResolutions = async (provider, contract) => {
   return await getPastEvents(provider, contract, [
-    RESOLUTION_PUBLISHED
+    EVENT_TOPICS["RESOLUTION_PUBLISHED"]
   ]);
 };
 
 const getActiveResolutions = async (provider, contract) => {
-  const resolutions = await getAllResolutions(provider, contract);
   const guessed = await getGuessedResolutions(provider, contract);
+  const resolutions = await getPastEvents(provider, contract,
+    EVENT_TOPICS["RESOLUTION_PUBLISHED"]
+  );
 
   return resolutions.filter((resolution) => {
     return !guessed.some((guess) => {

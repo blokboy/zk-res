@@ -1,5 +1,5 @@
 import { soliditySha3 } from "web3-utils";
-import ethers from 'ethers';
+import { ethers } from 'ethers';
 
 const createResolution = (resolution, creator) => {
   return soliditySha3(

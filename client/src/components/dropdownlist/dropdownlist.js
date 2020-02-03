@@ -1,9 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import { ethers } from 'ethers';
+
+import { getAllResolutions } from "../../zkres-utils";
+
 
 export default function DropDownList({ ...props }) {
   const { heading } = props;
-  const [recentGuesses, setRecentGuesses] = useState([]);
-  
+  const [recentResolutions, setRecentResolutions] = useState([]);
+  const provider = new ethers.providers.Web3Provider(window.web3.currentProvider);
+  useEffect(() => {
+      const resolutions = getAllResolutions(provider, '0xdA258105Aabe5e69BA768cb64d1F670d4BDB6702');
+
+      if(resolutions) {
+          setRecentResolutions(resolutions);
+          console.log('resolutions: ', resolutions);
+      } else {
+          console.log('err retrieving resolutions from contract...');
+      }
+
+      return;
+  }, []);
   return (
       <div style={{
           "display": "inline-block",

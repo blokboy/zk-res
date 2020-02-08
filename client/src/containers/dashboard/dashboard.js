@@ -10,6 +10,7 @@ import {
     createResolution,
     getActiveResolutions,
 } from "../../zkres-utils";
+import {ethers} from "ethers";
 
 const SearchBar = styled.input`
     display: flex;
@@ -54,10 +55,13 @@ const SearchButtonBitch = styled.button`
 
 function Dashboard({ ...props }) {
     const [bounty, setBounty] = useState(0.00);
-    const [resolution, setResolution] = useState('');
+    const [resolution, setResolution] = useState(''); // The resolution that's being created by the user
     const [search, setSearch] = useState('');
-    const [creator, setCreator] = useState('');
-    const [address, setAddress] = useState('');
+    const [provider, setProvider] = useState(new ethers.providers.Web3Provider(window.web3.currentProvider));
+    const [resolutions, setResolutions] = useState([]); // The most recent resolutions
+    const [guesses, setGuesses] = useState([]);
+
+    console.log('provider ', provider._web3Provider.selectedAddress);
 
     const closeModal = (e) => {
         e.preventDefault();
@@ -94,7 +98,7 @@ function Dashboard({ ...props }) {
                             </textarea>
                         </section>
                         <footer className="modal-card-foot">
-                            <button className="button is-success" onClick={(e) => createResolution(resolution, address)}>Add Hash</button>
+                            <button className="button is-success" onClick={(e) => createResolution(resolution, provider._web3Provider.selectedAddress)}>Add Hash</button>
                             <button className="button" onClick={(e) => closeModal(e)}>Cancel</button>
                         </footer>
                     </div>

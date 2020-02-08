@@ -217,7 +217,7 @@ const getPastEvents = async (provider, contract, topics = []) => {
   });
 
   return logs.map((log) => {
-    CONTRACT_INTERFACE.parseLog(log);
+    return CONTRACT_INTERFACE.parseLog(log);
   });
 };
 
@@ -225,7 +225,7 @@ const getCommittedGuesses = async (provider, contract) => {
   return await getPastEvents(provider, contract,
     EVENT_TOPICS["GUESS_COMMITTED"]
   );
-}
+};
 
 const getGuessedResolutions = async (provider, contract) => {
   return await getPastEvents(provider, contract,
